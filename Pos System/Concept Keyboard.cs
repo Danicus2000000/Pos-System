@@ -16,7 +16,10 @@ namespace Pos_System
         {
             InitializeComponent();
         }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static string btn_press {get; set;}//stores command
+
         private void Num_btn(object sender, EventArgs e)
         {
             Button btn = (Button)sender;//passes button number as command to add

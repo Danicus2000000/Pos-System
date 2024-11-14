@@ -12,8 +12,12 @@ namespace Pos_System
 {
     public partial class Ordering : Form
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string foodcost { get; set; }//used to pass the cost of the food back to the form
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string quantity { get; set; }//used to pass quantity of food back to form
+
         public Ordering(string send_food_name)//passes food from last form into this one
         {
             InitializeComponent();
