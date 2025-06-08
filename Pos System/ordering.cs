@@ -33,7 +33,7 @@ namespace Pos_System
         {
             List<string> data=DatabaseHandling.FetchInfo("SELECT [Description],[Cost] FROM Item WHERE [Food Name]=@food", food_name);//gets the food name and description
             Description_lbl.Text = data[0];
-            Cost_lbl.Text = "Cost: " + data[1];
+            Cost_lbl.Text = "Cost: £" + data[1];
         }
 
         private void Add_btn_Click(object sender, EventArgs e)//splices food cost to correct length and returns order requested result

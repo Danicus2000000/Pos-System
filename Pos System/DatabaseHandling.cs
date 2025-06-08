@@ -174,7 +174,7 @@ namespace Pos_System
                 while (reader.Read())
                 {
                     results.Add(reader["Description"].ToString());
-                    results.Add("Cost: " + reader["Cost"].ToString());//adds data to results list
+                    results.Add(reader["Cost"].ToString());//adds data to results list
                 }
             }
             catch (Exception)

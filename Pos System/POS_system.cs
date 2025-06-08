@@ -68,14 +68,14 @@ namespace Pos_System
                         {
                             currentorder[2] = (Convert.ToInt32(currentorder[2]) + Convert.ToInt32(d.Quantity)).ToString();
                             already_in = true;
-                            total_cost += Math.Round(Convert.ToDouble(d.FoodCost[6..])*Convert.ToInt32(d.Quantity),2);//ensures input is in correct form
+                            total_cost += Math.Round(Convert.ToDouble(d.FoodCost)*Convert.ToInt32(d.Quantity),2);//ensures input is in correct form
                             break;
                         }
                     }
-                    if (already_in)
+                    if (!already_in)
                     {
-                        ordered.Add([food.Text, d.FoodCost[5..],d.Quantity]);//adds the data to the order
-                        total_cost += Math.Round(Convert.ToDouble(d.FoodCost[6..]) * Convert.ToInt32(d.Quantity), 2);
+                        ordered.Add([food.Text, d.FoodCost,d.Quantity]);//adds the data to the order
+                        total_cost += Math.Round(Convert.ToDouble(d.FoodCost) * Convert.ToInt32(d.Quantity), 2);
                     }
                 }
             }
@@ -202,8 +202,8 @@ namespace Pos_System
             offset = offset + (int)fontheight + 5; //make the spacing consistent
             foreach(List<string> item in ordered) 
             {
-                string subtotal =string.Format("{0:c}",("£"+(Convert.ToDouble(item[2]) * Convert.ToDouble(item[1][1..])).ToString()));
-                string todraw = item[0].PadRight(40) + item[1].PadRight(14)+item[2].PadRight(7)+"@".PadRight(4)+subtotal;
+                string subtotal =string.Format("{0:c}",("£"+(Convert.ToDouble(item[2]) * Convert.ToDouble(item[1])).ToString()));
+                string todraw = item[0].PadRight(40) + "£" + item[1].PadRight(14)+item[2].PadRight(7)+"@".PadRight(4)+subtotal;
                 graphic.DrawString(todraw, font, new SolidBrush(Color.Black), startx, starty + offset);
                 offset = offset + (int)fontheight+5;
             }
