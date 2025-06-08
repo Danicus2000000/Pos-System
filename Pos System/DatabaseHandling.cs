@@ -71,10 +71,8 @@ namespace Pos_System
                     {
                         Text = reader["Food Name"].ToString(),
                         FlatStyle = FlatStyle.Flat,
-                        BackColor = pressed.BackColor
+                        BackColor = pressed.BackColor,
                     };//makes a new clickable food button to be used on the form
-                    POS_system pressed_event_get = new(string.Empty);
-                    b.Click += pressed_event_get.FoodButton_click;
                     b.Name = pressed.Text[..^1] + loop + "_btn";
                     b.Size = new Size(136, 46);
                     result.Add(b);

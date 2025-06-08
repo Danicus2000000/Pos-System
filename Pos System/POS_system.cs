@@ -53,7 +53,7 @@ namespace Pos_System
             job_name = employee_data[2];//also fetches job id
             Status_lbl.Text = "POS Status: Online        " + job_name + ": " + employee_name+"    Time: "+DateTime.Now.ToString("h:mm:ss tt");//sets up the status label with default values that gets updated via the timer
         }
-        public void FoodButton_click(object sender, EventArgs e)
+        internal void FoodButton_click(object sender, EventArgs e)
         {
             Button food = (Button)sender;//inherits buttons values and details temporarly for method use
             using (var d = new Ordering(food.Text))//initalises a form as a dialog box 
@@ -82,7 +82,7 @@ namespace Pos_System
             order_txt.Text = "Order\r\n)------(";//updates the order textbox with all current information
             foreach (List<string> item in ordered)
             {
-                order_txt.Text += "\r\n" + item[0] + " " + item[1] + " X" + item[2];
+                order_txt.Text += "\r\n" + item[0] + " £" + item[1] + " X" + item[2];
             }
             total_lbl.Text = "Total: £" + Math.Round(total_cost, 2);//updates total cost label with the current total
             try
@@ -110,6 +110,7 @@ namespace Pos_System
                 foreach(Button btn in DatabaseHandling.GetFoodButtons("SELECT [Food Name] FROM Item WHERE [Food Type]=@type",pressed))//fetches all buttons needed and adds them to the control
                 {
                     Button_flow.Controls.Add(btn);
+                    btn.Click += FoodButton_click;
                 }
                 current_cat = pressed.Text;
             }
@@ -136,7 +137,7 @@ namespace Pos_System
                     order_txt.Text = "Order\r\n)------(";//updates the order textbox with all current information
                     foreach (List<string> item in ordered)
                     {
-                        order_txt.Text += "\r\n" + item[0] + " " + item[1] + " X" + item[2];
+                        order_txt.Text += "\r\n" + item[0] + " £" + item[1] + " X" + item[2];
                     }
                     total_lbl.Text = "Total: £" + Math.Round(total_cost, 2);//updates total cost label with the current total
                     try
