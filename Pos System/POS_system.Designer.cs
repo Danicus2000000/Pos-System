@@ -169,7 +169,7 @@
             this.complete_btn.TabIndex = 10;
             this.complete_btn.Text = "Complete Order";
             this.complete_btn.UseVisualStyleBackColor = true;
-            this.complete_btn.Click += new System.EventHandler(this.complete_btn_Click);
+            this.complete_btn.Click += new System.EventHandler(this.Complete_btn_Click);
             // 
             // logout_btn
             // 

@@ -24,15 +24,13 @@ namespace Pos_System
                 PIN_txt.Text += button.Text;
                 if (PIN_txt.Text.Length == 4)
                 {
-                    Database_Handling handle = new Database_Handling();
-                    List<string> PINs = handle.get_PINs("SELECT [PIN] FROM Employees WHERE [PIN]=@PIN",PIN_txt.Text);//gets all PINs that correspond to entered PIN
+                    List<string> PINs = DatabaseHandling.GetPINs("SELECT [PIN] FROM Employees WHERE [PIN]=@PIN",PIN_txt.Text);//gets all PINs that correspond to entered PIN
                     if (PINs.Count != 0)
                     {
                         this.Hide();
                         Form POS = new POS_system(PIN_txt.Text);
                         POS.Closed += (s, args) => this.Close();
                         POS.Show();
-                        PINs = new List<string>();//Empties the PIN list for security
                     }
                     else//catch for incorrect PIN
                     {

@@ -67,13 +67,11 @@ namespace Pos_System
 
         private void Quantity_txt_Click(object sender, EventArgs e)
         {
-            using (var d = new Concept_Keyboard())
-            {
-                Quantity_txt.Text = "";
-                Quantity_tick.Enabled = true;//opens keyboard data flow
-                d.ShowDialog();
-                Quantity_tick.Enabled = false;//closes keyboard data flow
-            }
+            using var d = new Concept_Keyboard();
+            Quantity_txt.Text = "";
+            Quantity_tick.Enabled = true;//opens keyboard data flow
+            d.ShowDialog();
+            Quantity_tick.Enabled = false;//closes keyboard data flow
         }
 
         private void Quantity_tick_Tick(object sender, EventArgs e)
@@ -89,7 +87,7 @@ namespace Pos_System
             {
                 if (Quantity_txt.Text.Length != 0)//if there is a character to remove
                 {
-                    Quantity_txt.Text = Quantity_txt.Text.Substring(0, Quantity_txt.Text.Length - 1);//trim character off of string
+                    Quantity_txt.Text = Quantity_txt.Text[..^1];//trim character off of string
                 }
             }
             else if (Concept_Keyboard.btn_press == "Clear") //if clear is pressed

@@ -13,10 +13,10 @@ namespace Pos_System
     public partial class Ordering : Form
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string foodcost { get; set; }//used to pass the cost of the food back to the form
+        public string FoodCost { get; set; }//used to pass the cost of the food back to the form
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string quantity { get; set; }//used to pass quantity of food back to form
+        public string Quantity { get; set; }//used to pass quantity of food back to form
 
         public Ordering(string send_food_name)//passes food from last form into this one
         {
@@ -31,8 +31,7 @@ namespace Pos_System
 
         private void Ordering_Load(object sender, EventArgs e)//on load fetches food description and cost
         {
-            Database_Handling handle = new Database_Handling();
-            List<string> data=handle.fetch_info("SELECT [Description],[Cost] FROM Item WHERE [Food Name]=@food", food_name);//gets the food name and description
+            List<string> data=DatabaseHandling.FetchInfo("SELECT [Description],[Cost] FROM Item WHERE [Food Name]=@food", food_name);//gets the food name and description
             Description_lbl.Text = data[0];
             Cost_lbl.Text = "Cost: " + data[1];
         }
@@ -44,13 +43,13 @@ namespace Pos_System
             {
                 if(character!='0')
                 {
-                    contains_int=true;
+                    contains_int = true;
                 }
             }
-            if (Quantity_txt.Text.Length != 0 && contains_int==true)//ensures quantity is valid
+            if (Quantity_txt.Text.Length != 0 && contains_int)//ensures quantity is valid
             {
-                this.foodcost = Cost_lbl.Text.Substring(7);
-                this.quantity = Quantity_txt.Text;
+                this.FoodCost = Cost_lbl.Text[7..];
+                this.Quantity = Quantity_txt.Text;
                 this.DialogResult = DialogResult.Yes;
             }
             else 
@@ -61,13 +60,11 @@ namespace Pos_System
 
         private void Quantity_txt_Click(object sender, EventArgs e)
         {
-            using (var d = new Concept_Keyboard())
-            {
-                Quantity_txt.Text = "";
-                Quantity_tick.Enabled = true;//opens keyboard data flow
-                d.ShowDialog();
-                Quantity_tick.Enabled = false;//closes keyboard data flow
-            }
+            using var d = new Concept_Keyboard();
+            Quantity_txt.Text = "";
+            Quantity_tick.Enabled = true;//opens keyboard data flow
+            d.ShowDialog();
+            Quantity_tick.Enabled = false;//closes keyboard data flow
         }
 
         private void Quantity_tick_Tick(object sender, EventArgs e)
@@ -83,7 +80,7 @@ namespace Pos_System
             {
                 if (Quantity_txt.Text.Length != 0)//if there is a character to remove
                 {
-                    Quantity_txt.Text = Quantity_txt.Text.Substring(0, Quantity_txt.Text.Length - 1);//trim character off of string
+                    Quantity_txt.Text = Quantity_txt.Text[..^1];//trim character off of string
                 }
             }
             else if(Concept_Keyboard.btn_press=="Clear") //if clear is pressed
