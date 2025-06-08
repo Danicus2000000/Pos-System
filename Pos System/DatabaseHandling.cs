@@ -217,10 +217,6 @@ namespace Pos_System
             foreach (List<string> item in data)
             {
                 //loops through and inserts each ordered item's required info into the database
-                using OleDbConnection cnn = new(ConnectionString);//initialises connection
-                cnn.Open();//opens connection
-                using OleDbCommand cmd = new(SQL, cnn);//initialises query
-                cmd.Parameters.AddWithValue("@first", previous_order + 1);//adds parameters to string
                 string foodid = "";
                 //fetches food ID of each item for insertion into database
                 string strSQL2 = "SELECT [Food ID] FROM Item WHERE [Food Name]='" + item[0] + "'";//the SQL code to be executed
@@ -246,6 +242,10 @@ namespace Pos_System
                     }
                     connection.Close();
                 }
+                using OleDbConnection cnn = new(ConnectionString);//initialises connection
+                cnn.Open();//opens connection
+                using OleDbCommand cmd = new(SQL, cnn);//initialises query
+                cmd.Parameters.AddWithValue("@first", previous_order + 1);//adds parameters to string
                 cmd.Parameters.AddWithValue("@second", Convert.ToInt32(foodid));
                 cmd.Parameters.AddWithValue("@last", Convert.ToInt32(item[2]));
                 cmd.ExecuteNonQuery();//Executes string

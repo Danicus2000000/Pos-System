@@ -202,7 +202,7 @@ namespace Pos_System
             offset = offset + (int)fontheight + 5; //make the spacing consistent
             foreach(List<string> item in ordered) 
             {
-                string subtotal =string.Format("{0:c}",("£"+(Convert.ToDouble(item[2]) * Convert.ToDouble(item[1])).ToString()));
+                string subtotal =string.Format("{0:c}",("£"+Math.Round(Convert.ToDouble(item[2]) * Convert.ToDouble(item[1]), 2).ToString()));
                 string todraw = item[0].PadRight(40) + "£" + item[1].PadRight(14)+item[2].PadRight(7)+"@".PadRight(4)+subtotal;
                 graphic.DrawString(todraw, font, new SolidBrush(Color.Black), startx, starty + offset);
                 offset = offset + (int)fontheight+5;
